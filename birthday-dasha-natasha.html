@@ -1,0 +1,509 @@
+
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>С Днём рождения, Даша и Наташа</title>
+  <style>
+    :root {
+      --bg: #f7f4ef;
+      --surface: #ffffff;
+      --surface-warm: #fff4bf;
+      --fg: #111111;
+      --fg-2: #3f3f3f;
+      --muted: #6f6b63;
+      --meta: #ffcc33;
+      --border: #dfd8ca;
+      --border-soft: #ece6db;
+      --accent: #ffcc33;
+      --accent-on: #111111;
+      --accent-hover: color-mix(in oklab, var(--accent), black 8%);
+      --accent-active: color-mix(in oklab, var(--accent), black 14%);
+      --success: #198754;
+      --warn: #f59e0b;
+      --danger: #d92d20;
+      --font-display: "Renault Group", "Helvetica Neue", Arial, sans-serif;
+      --font-body: "Renault Group", "Helvetica Neue", Arial, sans-serif;
+      --font-mono: "SF Mono", ui-monospace, Menlo, monospace;
+      --text-xs: 12px;
+      --text-sm: 14px;
+      --text-base: 16px;
+      --text-lg: 19px;
+      --text-xl: 26px;
+      --text-2xl: 38px;
+      --text-3xl: 58px;
+      --text-4xl: 82px;
+      --leading-body: 1.5;
+      --leading-tight: 1.02;
+      --tracking-display: -0.03em;
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --space-12: 48px;
+      --section-y-desktop: 104px;
+      --section-y-tablet: 76px;
+      --section-y-phone: 52px;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 14px;
+      --radius-pill: 9999px;
+      --elev-flat: none;
+      --elev-ring: 0 0 0 1px var(--border);
+      --elev-raised: 0 22px 58px rgba(17, 17, 17, 0.14);
+      --focus-ring: 0 0 0 4px rgba(255, 204, 51, 0.36);
+      --motion-fast: 140ms;
+      --motion-base: 230ms;
+      --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+      --container-max: 1220px;
+      --container-gutter-desktop: 36px;
+      --container-gutter-tablet: 24px;
+      --container-gutter-phone: 16px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      min-width: 0;
+      background:
+        radial-gradient(circle at 18% 0%, color-mix(in oklch, var(--accent) 30%, transparent), transparent 30rem),
+        linear-gradient(180deg, var(--surface) 0%, var(--bg) 42%, var(--surface) 100%);
+      color: var(--fg);
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      line-height: var(--leading-body);
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    img { display: block; width: 100%; max-width: 100%; }
+    p { margin: 0; text-wrap: pretty; }
+    h1, h2, h3 { margin: 0; font-family: var(--font-display); text-wrap: balance; }
+
+    .page {
+      position: relative;
+      isolation: isolate;
+    }
+    .page::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(90deg, color-mix(in oklch, var(--fg) 5%, transparent) 1px, transparent 1px),
+        linear-gradient(180deg, color-mix(in oklch, var(--fg) 5%, transparent) 1px, transparent 1px);
+      background-size: clamp(42px, 7vw, 96px) clamp(42px, 7vw, 96px);
+      mask-image: linear-gradient(180deg, black, transparent 72%);
+      opacity: .32;
+      z-index: -2;
+    }
+    .container {
+      width: min(var(--container-max), calc(100% - (var(--container-gutter-desktop) * 2)));
+      margin-inline: auto;
+    }
+    .hero {
+      min-height: 100svh;
+      display: grid;
+      align-items: center;
+      padding-block: clamp(var(--section-y-phone), 8vw, var(--section-y-desktop));
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(320px, 1.1fr);
+      gap: clamp(var(--space-8), 6vw, var(--section-y-tablet));
+      align-items: center;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-5);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--fg);
+    }
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 2px;
+      background: var(--accent);
+    }
+    h1 {
+      max-width: 10ch;
+      font-size: clamp(46px, 8.8vw, var(--text-4xl));
+      line-height: .92;
+      letter-spacing: var(--tracking-display);
+      font-weight: 800;
+    }
+    .hero-copy {
+      display: grid;
+      gap: var(--space-6);
+    }
+    .hero-lead {
+      max-width: 42rem;
+      font-size: clamp(var(--text-lg), 2.1vw, var(--text-xl));
+      line-height: 1.28;
+      color: var(--fg-2);
+    }
+    .hero-note {
+      max-width: 30rem;
+      padding-left: var(--space-5);
+      border-left: 2px solid var(--accent);
+      color: var(--muted);
+      font-size: var(--text-sm);
+    }
+    .photo-frame {
+      position: relative;
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: clamp(18px, 2.2vw, 34px);
+      box-shadow:
+        0 34px 82px color-mix(in oklch, var(--fg) 18%, transparent),
+        0 2px 0 color-mix(in oklch, var(--surface) 80%, transparent) inset;
+      transform: translateZ(0);
+      transition: box-shadow 700ms var(--ease-standard), transform 700ms var(--ease-standard);
+    }
+    .photo-frame.is-visible {
+      box-shadow:
+        0 42px 96px color-mix(in oklch, var(--fg) 20%, transparent),
+        0 0 0 1px color-mix(in oklch, var(--accent) 20%, transparent) inset;
+    }
+    .photo-frame::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, color-mix(in oklch, var(--fg) 28%, transparent), transparent 33%, color-mix(in oklch, var(--fg) 26%, transparent));
+      pointer-events: none;
+      opacity: .5;
+    }
+    .hero-photo {
+      aspect-ratio: 4 / 5;
+      transform: rotate(-1.4deg);
+    }
+    .hero-photo.reveal { transform: rotate(-1.4deg) translateY(18px); }
+    .hero-photo.reveal.is-visible { transform: rotate(-1.4deg) translateY(0); }
+    .hero-photo img { animation: heroFloat 8s var(--ease-standard) infinite alternate; }
+    .hero-photo img,
+    .wish-photo img {
+      height: 100%;
+      object-fit: cover;
+      transition: transform 900ms var(--ease-standard), filter 900ms var(--ease-standard);
+    }
+    .photo-frame.is-visible img { transform: scale(1.024); }
+    .photo-caption {
+      position: absolute;
+      left: var(--space-5);
+      right: var(--space-5);
+      bottom: var(--space-5);
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-4);
+      color: var(--surface);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .section {
+      padding-block: clamp(var(--section-y-phone), 8vw, var(--section-y-desktop));
+      border-top: 1px solid var(--border);
+    }
+    .wish {
+      display: grid;
+      grid-template-columns: minmax(280px, .88fr) minmax(0, 1fr);
+      gap: clamp(var(--space-8), 6vw, var(--section-y-tablet));
+      align-items: center;
+    }
+    .wish.is-reversed .wish-photo { order: 2; }
+    .wish-photo {
+      aspect-ratio: 5 / 6;
+    }
+    .wish-card {
+      position: relative;
+      padding: clamp(var(--space-8), 5vw, var(--section-y-tablet));
+      background: color-mix(in oklch, var(--surface) 94%, transparent);
+      border: 1px solid var(--border);
+      border-radius: clamp(18px, 2vw, 30px);
+      box-shadow:
+        0 22px 64px color-mix(in oklch, var(--fg) 10%, transparent),
+        0 1px 0 color-mix(in oklch, var(--surface) 92%, transparent) inset;
+      overflow: hidden;
+      transition: transform 520ms var(--ease-standard), box-shadow 520ms var(--ease-standard);
+    }
+    .wish-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 12% 0%, color-mix(in oklch, var(--accent) 13%, transparent), transparent 18rem);
+      opacity: .9;
+    }
+    .wish-card::before {
+      content: attr(data-number);
+      position: absolute;
+      top: var(--space-5);
+      right: var(--space-5);
+      z-index: 1;
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--muted);
+      letter-spacing: .12em;
+    }
+    .wish-card h2 {
+      position: relative;
+      z-index: 1;
+      margin-bottom: var(--space-6);
+      max-width: 12ch;
+      font-size: clamp(var(--text-2xl), 4.8vw, var(--text-3xl));
+      line-height: var(--leading-tight);
+      letter-spacing: var(--tracking-display);
+      font-weight: 800;
+    }
+    .wish-card h2::after {
+      content: "";
+      display: block;
+      width: clamp(52px, 8vw, 96px);
+      height: 4px;
+      margin-top: var(--space-5);
+      background: var(--accent);
+    }
+    .wish-text {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: var(--space-4);
+      color: var(--fg-2);
+      font-size: clamp(var(--text-base), 1.6vw, var(--text-lg));
+      line-height: 1.58;
+    }
+    .finale {
+      position: relative;
+      min-height: 76svh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      background: var(--fg);
+      color: var(--surface);
+      overflow: hidden;
+    }
+    .finale::before {
+      content: "";
+      position: absolute;
+      inset: auto -10% -25% -10%;
+      height: 58%;
+      background: radial-gradient(circle, color-mix(in oklch, var(--accent) 58%, transparent), transparent 65%);
+      opacity: .8;
+    }
+    .finale-content {
+      position: relative;
+      width: min(820px, calc(100% - (var(--container-gutter-desktop) * 2)));
+      padding-block: clamp(var(--section-y-tablet), 10vw, calc(var(--section-y-desktop) + var(--space-12)));
+    }
+    .finale h2 {
+      font-size: clamp(var(--text-3xl), 8vw, var(--text-4xl));
+      line-height: .94;
+      letter-spacing: var(--tracking-display);
+      font-weight: 800;
+    }
+    .finale p {
+      margin: var(--space-6) auto 0;
+      max-width: 36rem;
+      color: color-mix(in oklch, var(--surface) 78%, transparent);
+      font-size: clamp(var(--text-lg), 2.4vw, var(--text-xl));
+      line-height: 1.35;
+    }
+    .sparkle {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      border-radius: var(--radius-pill);
+      background: var(--accent);
+      pointer-events: none;
+      opacity: 0;
+      transform: translate3d(0, 0, 0) scale(.4);
+      animation: floatUp 1500ms var(--ease-standard) forwards;
+      z-index: 5;
+    }
+    @keyframes floatUp {
+      0% { opacity: 0; transform: translate3d(0, 16px, 0) scale(.4); }
+      20% { opacity: .9; }
+      100% { opacity: 0; transform: translate3d(0, -54px, 0) scale(1.15); }
+    }
+    @keyframes heroFloat {
+      0% { filter: saturate(1) brightness(1); }
+      100% { filter: saturate(1.06) brightness(1.035); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 700ms var(--ease-standard), transform 700ms var(--ease-standard);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 920px) {
+      .container,
+      .finale-content { width: min(100% - (var(--container-gutter-tablet) * 2), var(--container-max)); }
+      .hero-grid,
+      .wish { grid-template-columns: 1fr; }
+      .wish.is-reversed .wish-photo { order: 0; }
+      h1 { max-width: 11ch; }
+      .hero-photo { transform: none; }
+      .hero-photo.reveal,
+      .hero-photo.reveal.is-visible { transform: translateY(0); }
+      .hero-photo img { animation: none; }
+    }
+    @media (max-width: 520px) {
+      .container,
+      .finale-content { width: min(100% - (var(--container-gutter-phone) * 2), var(--container-max)); }
+      .hero { min-height: auto; }
+      .hero-grid { gap: var(--space-8); }
+      .photo-caption { flex-direction: column; gap: var(--space-1); }
+      .photo-frame { border-radius: 20px; box-shadow: 0 18px 48px color-mix(in oklch, var(--fg) 16%, transparent); }
+      .wish-card { padding: var(--space-6); border-radius: 20px; box-shadow: 0 16px 42px color-mix(in oklch, var(--fg) 9%, transparent); }
+      .wish-card::before { position: static; display: block; margin-bottom: var(--space-4); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; scroll-behavior: auto !important; }
+      .hero-photo.reveal,
+      .hero-photo.reveal.is-visible { transform: rotate(-1.4deg); }
+      .hero-photo img { animation: none; }
+      .reveal { opacity: 1; transform: none; }
+    }
+    @media (max-width: 920px) and (prefers-reduced-motion: reduce) {
+      .hero-photo.reveal,
+      .hero-photo.reveal.is-visible { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero" data-od-id="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">личное поздравление</p>
+          <h1>С Днём рождения, Даша и Наташа! 🎉</h1>
+          <p class="hero-lead">Пусть каждый новый день приносит радость, улыбки, удачу и исполнение самых смелых мечтаний.</p>
+          <p class="hero-note">Эта страница собрана как маленький праздничный альбом: тёплые слова, любимые моменты и ощущение, что впереди много светлого.</p>
+        </div>
+        <figure class="photo-frame hero-photo reveal">
+          <img src="mqv1ks7z-photo_2026-06-26_17-43-36.jpg" alt="Даша и Наташа улыбаются у воды в солнечный день" />
+          <figcaption class="photo-caption"><span>день рождения</span><span>для Даши и Наташи</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section wish" data-od-id="wish-1">
+      <figure class="photo-frame wish-photo reveal">
+        <img src="mqv1ks72-photo_2026-06-26_17-43-46.jpg" alt="Даша и Наташа гуляют по красивой европейской улице" />
+        <figcaption class="photo-caption"><span>момент 01</span><span>улыбки и город</span></figcaption>
+      </figure>
+      <article class="wish-card reveal" data-number="01 / 04">
+        <h2>Счастливые события</h2>
+        <div class="wish-text">
+          <p>Дорогие Даша и Наташа!</p>
+          <p>Поздравляю вас с Днём рождения!</p>
+          <p>Пусть впереди вас ждут только счастливые события, яркие впечатления и новые возможности. Желаю всегда идти вперёд с улыбкой, верить в себя и никогда не останавливаться на достигнутом.</p>
+          <p>Пусть каждый день будет наполнен радостью, теплом и хорошим настроением.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="section wish is-reversed" data-od-id="wish-2">
+      <figure class="photo-frame wish-photo reveal">
+        <img src="mqv1ks66-photo_2026-06-26_17-43-49.jpg" alt="Весёлое селфи Даши, Наташи и подруги в парке" />
+        <figcaption class="photo-caption"><span>момент 02</span><span>новая страница</span></figcaption>
+      </figure>
+      <article class="wish-card reveal" data-number="02 / 04">
+        <h2>Новая страница</h2>
+        <div class="wish-text">
+          <p>Сейчас вы открываете новую страницу своей жизни.</p>
+          <p>Польша уже подарила вам новые впечатления, а впереди вас ждёт Чехия и ещё больше интересных событий.</p>
+          <p>Пусть всё складывается именно так, как вы мечтаете.</p>
+          <p>Желаю лёгкой работы, дружного коллектива, отличного настроения и чтобы каждый новый день приносил только приятные сюрпризы.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="section wish" data-od-id="wish-3">
+      <figure class="photo-frame wish-photo reveal">
+        <img src="mqv1ks5s-photo_2026-06-26_17-43-52.jpg" alt="Даша и Наташа на прогулке в тёплом вечернем свете" />
+        <figcaption class="photo-caption"><span>момент 03</span><span>удача рядом</span></figcaption>
+      </figure>
+      <article class="wish-card reveal" data-number="03 / 04">
+        <h2>Большие достижения</h2>
+        <div class="wish-text">
+          <p>Пусть ваши старания всегда приводят к большим достижениям.</p>
+          <p>Желаю огромных зарплат, финансового благополучия, уверенности в завтрашнем дне и чтобы все поставленные цели обязательно становились реальностью.</p>
+          <p>Пусть удача сопровождает вас буквально на каждом шагу.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="section wish is-reversed" data-od-id="wish-4">
+      <figure class="photo-frame wish-photo reveal">
+        <img src="mqv1ks7z-photo_2026-06-26_17-43-36.jpg" alt="Даша и Наташа вместе на набережной под голубым небом" />
+        <figcaption class="photo-caption"><span>момент 04</span><span>тепло и поддержка</span></figcaption>
+      </figure>
+      <article class="wish-card reveal" data-number="04 / 04">
+        <h2>Больше счастливых моментов</h2>
+        <div class="wish-text">
+          <p>Желаю крепкого здоровья, счастья, любви, вдохновения и бесконечного количества поводов улыбаться.</p>
+          <p>Пусть рядом всегда будут хорошие люди, искренние друзья и поддержка близких.</p>
+          <p>Пусть ваши путешествия становятся только интереснее, жизнь — ярче, а каждый новый год приносит ещё больше счастливых моментов.</p>
+          <p>С Днём рождения! 🎂🎉</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="finale" data-od-id="finale">
+      <div class="finale-content reveal">
+        <p class="eyebrow">пусть всё получится</p>
+        <h2>Много света, смеха и красивых дорог впереди.</h2>
+        <p>Даша и Наташа, пусть этот год будет добрым, щедрым на возможности и наполненным моментами, которые хочется вспоминать снова и снова.</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.18 });
+
+    document.querySelectorAll('.reveal, .photo-frame').forEach((node) => revealObserver.observe(node));
+
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      let sparkleCount = 0;
+      const makeSparkle = () => {
+        sparkleCount += 1;
+        const dot = document.createElement('span');
+        dot.className = 'sparkle';
+        dot.style.left = `${12 + Math.random() * 76}vw`;
+        dot.style.top = `${18 + Math.random() * 68}vh`;
+        dot.style.animationDelay = `${Math.random() * 220}ms`;
+        document.body.appendChild(dot);
+        window.setTimeout(() => dot.remove(), 1800);
+        if (sparkleCount < 36) window.setTimeout(makeSparkle, 260 + Math.random() * 520);
+      };
+      window.setTimeout(makeSparkle, 500);
+    }
+  </script>
+</body>
+</html>
